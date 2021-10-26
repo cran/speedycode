@@ -1,0 +1,8 @@
+821c63f999614bc20a647c9f00977b24 *DESCRIPTION
+0b1727142e519c8fd70ea6b0de9aecc1 *NAMESPACE
+628faa9e41b7d74faf6bf9a1826fe3ef *R/speedycode.R
+c5d8c08d3a23dfcbf7d5311215ebaa70 *man/debug_ascii.Rd
+04a28fc42f6914e493062e4b1857dc43 *man/speedy_classes.Rd
+3bffd122ef0df120dc61268b920bf589 *man/speedy_labels.Rd
+afa3ce618aecd5dbc1ebb992b20291ee *man/speedy_rename.Rd
+451e1078f88e5a3ffd5b32c2d7e99d59 *man/speedy_varnames.Rd

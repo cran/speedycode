@@ -1,0 +1,4 @@
+exportPattern("^[[:alpha:]]+")
+importFrom("utils", "capture.output")
+importFrom("purrr", "map_dfr")
+import(dplyr,stringr)
