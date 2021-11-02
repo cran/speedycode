@@ -146,11 +146,11 @@ speedy_labels <- function(data, nrows = 5, path = "") {
         '"NEW_LABEL"', " = ", unique(data_last_var[1])[4,], "\n", ")", "\n)", sep = "")
   } else if (nrows == 5) {
     cat(colnames(data_last_var[1]), " = ", "c(", "\n",
-        '"NEW_LABEL"', " = ", unique(data_last_var[1])[1,], ",", "\n",
-        '"NEW_LABEL"', " = ", unique(data_last_var[1])[2,], ",", "\n",
-        '"NEW_LABEL"', " = ", unique(data_last_var[1])[3,], ",", "\n",
-        '"NEW_LABEL"', " = ", unique(data_last_var[1])[4,], ",", "\n",
-        '"NEW_LABEL"', " = ", unique(data_last_var[1])[5,], "\n", ")", "\n)", sep = "")
+        '"NEW_LABEL"', " = ", unlist(unique(data_last_var[1])[1,]), ",", "\n",
+        '"NEW_LABEL"', " = ", unlist(unique(data_last_var[1])[2,]), ",", "\n",
+        '"NEW_LABEL"', " = ", unlist(unique(data_last_var[1])[3,]), ",", "\n",
+        '"NEW_LABEL"', " = ", unlist(unique(data_last_var[1])[4,]), ",", "\n",
+        '"NEW_LABEL"', " = ", unlist(unique(data_last_var[1])[5,]), "\n", ")", "\n)", sep = "")
   } else if (nrows == 6) {
     cat(colnames(data_last_var[1]), " = ", "c(", "\n",
         '"NEW_LABEL"', " = ", unique(data_last_var[1])[1,], ",", "\n",
@@ -256,11 +256,11 @@ speedy_labels <- function(data, nrows = 5, path = "") {
                                         "set_value_labels(", "\n"),
                                     suppressMessages(invisible(purrr::map_dfr(1:length(data_short),val_code))),
                                     cat(colnames(data_last_var), " = ", "c(", "\n",
-                                        '"NEW_LABEL"', " = ", unique(data_last_var[1])[1,], ",", "\n",
-                                        '"NEW_LABEL"', " = ", unique(data_last_var[1])[2,], ",", "\n",
-                                        '"NEW_LABEL"', " = ", unique(data_last_var[1])[3,], ",", "\n",
-                                        '"NEW_LABEL"', " = ", unique(data_last_var[1])[4,], ",", "\n",
-                                        '"NEW_LABEL"', " = ", unique(data_last_var[1])[5,], "\n", ")\n)",
+                                        '"NEW_LABEL"', " = ", unlist(unique(data_last_var[1])[1,]), ",", "\n",
+                                        '"NEW_LABEL"', " = ", unlist(unique(data_last_var[1])[2,]), ",", "\n",
+                                        '"NEW_LABEL"', " = ", unlist(unique(data_last_var[1])[3,]), ",", "\n",
+                                        '"NEW_LABEL"', " = ", unlist(unique(data_last_var[1])[4,]), ",", "\n",
+                                        '"NEW_LABEL"', " = ", unlist(unique(data_last_var[1])[5,]), "\n", ")\n)",
                                         sep = ""),
                                     file = path))
   } else if (nrows == 6) {
