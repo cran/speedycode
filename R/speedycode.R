@@ -347,6 +347,100 @@ speedy_labels <- function(data, nrows = 5, path = "") {
   }
 }
 
+#### speedy_mutate ####
+speedy_mutate <- function(data, var, var_classes = "sn", path = ""){
+  x <- data %>%
+    select(all_of(var)) %>%
+    distinct() %>%
+    arrange()
+
+  # BOTH old and new var are strings
+  if(var_classes == "ss") {
+    line1 <- paste("data"," <- ", "data", " %>%", sep = "")
+    line2a <- "mutate("
+    line2b <- paste('NEW_VAR', " = ", "case_when(", "\n", var, " == ", '"', x[1,1], '"', " ~ ", '"', "NEW_VAL", '"', ",", sep = "")
+    line2d <- character()
+    for(i in 2:(nrow(x)-1)) {
+      line2d <- c(line2d, paste(var, " == ", '"', x[i,1], '"', " ~ ", '"', "NEW_VAL", '"', ",", "\n", sep = ""))
+      # cat(line2d)
+    }
+    line2e <- paste(var, " == ", '"', x[nrow(x),1], '"', " ~ ", '"', "NEW_VAL", '"', ")", "\n", sep = "")
+    last_line <- paste(")", sep = "")
+
+    # This prints the code in the console
+    cat(line1, "\n", line2a, "\n", line2b, "\n", line2d, line2e, last_line)
+
+    # This writes the code to a separate R script
+    suppressWarnings(utils::capture.output(cat(line1, "\n", line2a, "\n", line2b, "\n", line2d, line2e, last_line), file = path))
+  }
+
+  else if(var_classes == "sn") {
+    line1 <- paste("data"," <- ", "data", " %>%", sep = "")
+    line2a <- "mutate("
+    line2b <- paste('NEW_VAR', " = ", "case_when(", "\n", var, " == ", '"', x[1,1], '"', " ~ ", "NEW_VAL", ",", sep = "")
+    line2d <- character()
+    for(i in 2:(nrow(x)-1)) {
+      line2d <- c(line2d, paste(var, " == ", '"', x[i,1], '"', " ~ ", "NEW_VAL", ",", "\n", sep = ""))
+      # cat(line2d)
+    }
+    line2e <- paste(var, " == ", '"', x[nrow(x),1], '"', " ~ ", "NEW_VAL", ")", "\n", sep = "")
+    last_line <- paste(")", sep = "")
+
+    # This prints the code in the console
+    cat(line1, "\n", line2a, "\n", line2b, "\n", line2d, line2e, last_line)
+
+    # This writes the code to a separate R script
+    suppressWarnings(utils::capture.output(cat(line1, "\n", line2a, "\n", line2b, "\n", line2d, line2e, last_line), file = path))
+  }
+
+  else if(var_classes == "nn") {
+    line1 <- paste("data"," <- ", "data", " %>%", sep = "")
+    line2a <- "mutate("
+    line2b <- paste('NEW_VAR', " = ", "case_when(", "\n", var, " == ", x[1,1], " ~ ", "NEW_VAL", ",", sep = "")
+    line2d <- character()
+    for(i in 2:(nrow(x)-1)) {
+      line2d <- c(line2d, paste(var, " == ", x[i,1], " ~ ", "NEW_VAL", ",", "\n", sep = ""))
+      # cat(line2d)
+    }
+    line2e <- paste(var, " == ", x[nrow(x),1], " ~ ", "NEW_VAL", ")", "\n", sep = "")
+    last_line <- paste(")", sep = "")
+
+    # This prints the code in the console
+    cat(line1, "\n", line2a, "\n", line2b, "\n", line2d, line2e, last_line)
+
+    # This writes the code to a separate R script
+    suppressWarnings(utils::capture.output(cat(line1, "\n", line2a, "\n", line2b, "\n", line2d, line2e, last_line), file = path))
+  }
+
+  else if(var_classes == "ns") {
+    line1 <- paste("data"," <- ", "data", " %>%", sep = "")
+    line2a <- "mutate("
+    line2b <- paste('NEW_VAR', " = ", "case_when(", "\n", var, " == ", x[1,1], " ~ ", '"', "NEW_VAL", '"', ",", sep = "")
+    line2d <- character()
+    for(i in 2:(nrow(x)-1)) {
+      line2d <- c(line2d, paste(var, " == ", x[i,1], " ~ ", '"', "NEW_VAL", '"', ",", "\n", sep = ""))
+      # cat(line2d)
+    }
+    line2e <- paste(var, " == ", x[nrow(x),1], " ~ ", '"', "NEW_VAL", '"', ")", "\n", sep = "")
+    last_line <- paste(")", sep = "")
+
+    # This prints the code in the console
+    cat(line1, "\n", line2a, "\n", line2b, "\n", line2d, line2e, last_line)
+
+    # This writes the code to a separate R script
+    suppressWarnings(utils::capture.output(cat(line1, "\n", line2a, "\n", line2b, "\n", line2d, line2e, last_line), file = path))
+  }
+
+  # This throws an error if the code is saved out to a file that is NOT an R script
+  final_path_char <- stringr::str_sub(path,-2,-1)
+  if(stringr::str_detect(path, ".") && final_path_char != ".R") {
+    stop('Must specify ".R" at the end of the path to save formatted code to an R script file')
+  }
+
+  oo <- options(crayon.enabled = FALSE)
+  on.exit(options(oo))
+}
+
 #### speedy_rename ####
 speedy_rename <- function(data, path = "") {
 
@@ -368,7 +462,6 @@ speedy_rename <- function(data, path = "") {
   if (stringr::str_detect(path, ".") && final_path_char != ".R") {
     stop('Must specify ".R" at the end of the path to save formatted code to an R script file')
   }
-
 
   # This writes the code to a separate R script
   suppressWarnings(utils::capture.output(cat(line1, "\n", line2a, "\n", line2b, "\n", newcode, line4), file = path))

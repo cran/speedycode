@@ -19,7 +19,7 @@ speedy_labels(data, nrows = 5, path = "")
   Number of rows for value labels of each variable. The minimum number of rows allowed is 2 and the maximum is 10. Extra rows without values are set to NA.
   }
   \item{path}{
-  If saving code to a separate file, specify the file path here. Leave blank if not saving code.
+    If saving code to a new R script file, specify the file path here. Leave blank if not saving code.
   }
 }
 \details{

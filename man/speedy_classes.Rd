@@ -18,7 +18,7 @@ speedy_classes(data, path = "")
   name of dataset
 }
   \item{path}{
-  If saving code to a separate file, specify the file path here. Leave blank if not saving code.
+    If saving code to a new R script file, specify the file path here. Leave blank if not saving code.
   }
 }
 
